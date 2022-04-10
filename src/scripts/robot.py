@@ -14,8 +14,8 @@ pi = 3.14159
 
 def updateW(W1_prev, W2_prev, W1_tar, W2_tar):
     beta = dt / (dt + T)
-    W1n = beta * W1prev + (1-beta)*W1tar
-    W2n = beta * W2prev + (1-beta)*W2tar
+    W1n = beta * W1_prev + (1-beta) * W1_tar
+    W2n = beta * W2_prev + (1-beta) * W2_tar
     return (W1n, W2n)
     
 def wheelVel(V, Omega):
@@ -42,7 +42,7 @@ def sendToServ(W1_tar, W2_tar):
     
     now = rospy.Time.now()
     rate = rospy.Rate(10)
-    while rospy.Time.now() < now + rospy.Duration.from_sec(20):
+    while now < rospy.Duration.from_sec(20):
         W1_new, W2_new = updateW(W1_prev, W2_prev, W1_tar, W2_tar)
         e1, e2 = velToEncoder(W1_new, W2_new)
 
